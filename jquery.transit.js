@@ -516,6 +516,38 @@
     if (typeof duration === 'undefined') { duration = $.fx.speeds._default; }
     if (typeof easing === 'undefined')   { easing = $.cssEase._default; }
 
+    // IE Fallback
+    if(!$.support.transition) {
+        if(typeof properties.x !== 'undefined') {
+            var leftmove = 0;
+            
+            if(self.data('x') === undefined) var tmpx = 0;
+            else var tmpx = self.data('x');
+            
+            self.data('x', properties.x);
+            leftmove = properties.x - tmpx;
+            properties.left = leftmove < 0 ? '-=' + Math.abs(leftmove) : '+=' + leftmove;
+            delete properties.x;
+        }
+        
+        if(typeof properties.y !== 'undefined') {
+            var topmove = 0;
+            
+            if(self.data('y') === undefined) var tmpy = 0;
+            else var tmpy = self.data('y');
+            
+            self.data('y', properties.y);
+            topmove = properties.y - tmpy;
+            properties.top = topmove < 0 ? '-=' + Math.abs(topmove) : '+=' + topmove;
+            delete properties.y;
+
+        }
+
+        self.animate(properties, duration);
+        
+        return false;
+    }
+
     duration = toMS(duration);
 
     // Build the `transition` property.
