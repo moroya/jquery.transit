@@ -543,7 +543,8 @@
 
         }
 
-        self.animate(properties, duration);
+        if(callback) self.animate(properties, duration, callback);
+        else self.animate(properties, duration);
         
         return false;
     }

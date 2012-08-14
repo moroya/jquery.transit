@@ -26,12 +26,27 @@ $(function() {
 			'x': 0,
 			'y': 0
 		}, 500);
+		
+		$('#box2').transition({
+			'opacity': 1
+		}, 500);
+	});
+
+	$('#box2').on('click', function() {
+		$(this).transition({
+			'opacity': 0
+		}, 500, function() {
+			alert('callback');
+		});
+		
+		return false;
 	});
 });
 </script>
 </head>
 <body>
 	<div id="box" style="width:100px;height:100px;background-color:#000;position:absolute;top:10px;left:10px;"></div>
+	<div id="box2" style="width:100px;height:100px;background-color:#000;position:absolute;top:10px;left:200px;opacity:1;"></div>
 <pre style="padding-top: 180px;"><code>
 	// If you do not support CSS transition, use of frame-based animation ($.fn.animate)
 	// IE9 support
